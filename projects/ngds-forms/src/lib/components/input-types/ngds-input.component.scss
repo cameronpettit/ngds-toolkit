@@ -1,0 +1,32 @@
+// @import "/node_modules/bootstrap/scss/functions";
+// @import "/node_modules/bootstrap/scss/variables";
+// @import "/node_modules/bootstrap/scss/mixins";
+
+$form-invalid-bg: #ffc7c9;
+$form-invalid: #e44c51;
+$form-invalid-80: #d8292f80;
+
+.invalid-input {
+  // background-color: $form-invalid-bg;
+  border: 2px solid $form-invalid;
+}
+
+.invalid-input:focus{
+  box-shadow: 0 0 0 0.25rem $form-invalid-80;
+}
+
+.input-group-before {
+  background-color: white;
+  border-right: none;
+}
+
+.input-group-middle {
+  background-color: white;
+  border-right: none;
+  border-left: none;
+}
+
+.input-group-after {
+  background-color: white;
+  border-left: none;
+}

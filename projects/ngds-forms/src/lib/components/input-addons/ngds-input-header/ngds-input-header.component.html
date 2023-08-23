@@ -1,0 +1,17 @@
+<!-- Label -->
+<div *ngIf="label" class="m-1 d-flex">
+  <label><strong>{{label}}</strong>
+    <!-- Show required asterisk -->
+    <span *ngIf="isRequired()" class="text-danger ms-1">*</span>
+    <!-- Show tooltip -->
+    <span *ngIf="tooltip">
+      <button class="btn btn-outline-light tooltip">
+        <i class="bi bi-exclamation"></i>
+      </button>
+    </span>
+    <!-- Show sub label -->
+    <div>
+      {{subLabel}}
+    </div>
+  </label>
+</div>

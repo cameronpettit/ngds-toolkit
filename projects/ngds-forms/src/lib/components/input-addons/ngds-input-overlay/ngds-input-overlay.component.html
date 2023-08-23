@@ -1,0 +1,6 @@
+<div *ngIf="invalid || dropdownCaret" class=" position-absolute top-50 end-0 translate-middle-y">
+    <i *ngIf="invalid" class=" text-danger me-2 bi bi-exclamation-circle"></i>
+    <i *ngIf="dropdownCaret" class="me-2 bi bi-caret-down-fill"></i>
+</div>
+<div *ngIf="loading" role="status" class="position-absolute top-50 start-50 translate-middle"><span
+    class="spinner-border-sm spinner-border text-secondary"></span></div>

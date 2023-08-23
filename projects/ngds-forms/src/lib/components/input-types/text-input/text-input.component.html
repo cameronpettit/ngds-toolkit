@@ -1,0 +1,11 @@
+<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+<div class="d-flex position-relative">
+  <div #inputGroup class="input-group">
+    <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+    <input #inputMain class="form-control" [formControl]="control" [ngClass]="getInputClasses()"
+      [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()">
+    <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+  </div>
+  <ngds-input-overlay #inputOverlay [loading]="isLoading" [invalid]="isInvalid"></ngds-input-overlay>
+</div>
+<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid"></ngds-input-footer>
