@@ -8,5 +8,4 @@ import { Component, Input } from '@angular/core';
 export class NgdsInputOverlayComponent {
   @Input() loading: boolean = false;
   @Input() invalid: boolean = false;
-  @Input() dropdownCaret: boolean = false;
 }

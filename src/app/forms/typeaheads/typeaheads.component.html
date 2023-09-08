@@ -1,0 +1,6 @@
+<ngds-typeahead-input [label]="'Basic Typeahead'" [selectionListItems]="basicList1" [control]="fields.basicTypeahead" [subLabel]="'Search for a province or territory'">
+</ngds-typeahead-input>
+<ngds-typeahead-input [label]="'Min Length Typeahead'" [selectionListItems]="basicList1" [control]="fields.minLength" [typeaheadMinLength]="3" [subLabel]="'Typeahead opens after a minimum character length reached'"></ngds-typeahead-input>
+<ngds-typeahead-input [label]="'Invalid Typeahead'" [selectionListItems]="basicList1" [control]="fields.invalidTypeahead" [subLabel]="'Only provinces are valid.'"></ngds-typeahead-input>
+<ngds-typeahead-input [label]="'Multiselect Typeahead'" [selectionListItems]="basicList1" [control]="fields.multiselectTypeahead" [typeaheadMultipleSearch]="true" [subLabel]="'Use &quot;;&quot; as the delimiter.'"></ngds-typeahead-input>
+<button class="mt-4" (click)="printForm()">print form</button>

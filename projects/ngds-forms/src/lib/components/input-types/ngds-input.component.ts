@@ -10,8 +10,10 @@ export interface resetControlArgs {
 }
 
 export interface selectionItemSchema {
-  value?: any,
+  readonly value?: any,
   display?: any,
+  template?: TemplateRef<any>,
+  disabled?: boolean
 }
 
 @Component({
@@ -24,9 +26,9 @@ export class NgdsInput implements OnInit, OnDestroy {
   @Input() label: string;
   @Input() subLabel: string;
   @Input() placeholder: string;
-  @Input() inputClasses: string = '';
+  @Input() inputClasses: any;
+  @Input() resetButton: boolean = false;
   @Input() noValidationIfFocused: boolean = false;
-  // @Input() selectionListItems;
   @Input() set selectionListItems(items: selectionItemSchema[]) {
     if (items) {
       this.updateSelectionListItems(items);
@@ -54,8 +56,6 @@ export class NgdsInput implements OnInit, OnDestroy {
   @Output() selectionListUpdated = new EventEmitter<any>();
 
   @ViewChild('inputGroup', { static: true }) inputGroup: ElementRef;
-  @ViewChild('inputPrepend') inputPrepend: TemplateRef<any>;
-  @ViewChild('inputAppend') inputAppend: TemplateRef<any>;
 
   public _disabled = new BehaviorSubject<boolean>(false);
   public isDisabled: boolean = false;
@@ -78,11 +78,14 @@ export class NgdsInput implements OnInit, OnDestroy {
 
   public labelOptions: NgdsInputLabelOptions;
 
+  public controlId = null;
+
   constructor(
-    private el: ElementRef,
-    private cd: ChangeDetectorRef,
-    private vcr: ViewContainerRef
   ) {
+    // Generate 'unique' id for control so label/inputs/etc can talk to one another.
+    // Basic angular controls aren't constructed with a unique identifier.
+    // This is only to satisfy ARIA
+    this.controlId = Math.floor(Math.random() * 999999);
     // every time the value of one of these changes, we have to check the control state.
     combineLatest([this._disabled, this._loading, this._controlInitialized]).subscribe((
       []
@@ -92,12 +95,14 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('this.selectionListItems:', this.selectionListItems);
     if (this.inputClasses) {
       console.log('this.inputClasses:', this.inputClasses);
     }
     // set _currentStatus to current control status - otherwise the initialization will count as a status change.
     this._currentStatus.next(this.control?.status);
+
+    // attach unique control id
+    this.control['id'] = this.controlId;
 
     // get initial control value. Some input types (eg. picklists) require options to be built before the control can properly display the value.
     const initControlValue = this.control?.value;
@@ -142,10 +147,6 @@ export class NgdsInput implements OnInit, OnDestroy {
     setTimeout(() => {
       this._controlInitialized.next(true);
     }, 2000)
-  }
-
-  getInputElement() {
-    return this.el;
   }
 
   updateSelectionListItems(items: any[]) {
@@ -220,27 +221,27 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   getInputClasses() {
-    let classes = '';
+    let classes = {};
+    if (this.inputClasses) {
+      const inputClassList = this.inputClasses.split(" ");
+      for (const inputClass of inputClassList) {
+        classes[inputClass] = true;
+      }
+    }
     if (this.isInvalid) {
-      classes += ' invalid-input';
+      classes["is-invalid"] = true;
+      classes["border"] = true;
+      classes["border-danger"] = true;
+    } else {
+      classes["border"] = true;
     }
-    classes += this.inputClasses;
+    if (this.isDisabled) {
+      classes["disabled-input"] = true;
+    } else {
+      classes["bg-white"] = true;
+    }
+    classes = Object.assign(classes, this.inputClasses);
     return classes;
-  }
-
-  checkInputGroup() {
-    const input = this.inputGroup;
-    console.log('input:', input);
-    let classlist = [];
-    if (!this.inputGroup.nativeElement.firstChild.toString().startsWith('input') ||
-      !this.inputGroup.nativeElement.firstChild.toString().startsWith('select')) {
-      classlist.push('input-group-before');
-    }
-    if (!this.inputGroup.nativeElement.lastChild.toString().startsWith('input') ||
-      !this.inputGroup.nativeElement.lastChild.toString().startsWith('select')) {
-      classlist.push('input-group-after');
-    }
-    return classlist;
   }
 
   isRequired() {
@@ -254,6 +255,7 @@ export class NgdsInput implements OnInit, OnDestroy {
   }
 
   onBlur() {
+    this.control.markAsTouched();
     this._isFocused.next(false);
     this.checkValidity();
     this.blur.emit();

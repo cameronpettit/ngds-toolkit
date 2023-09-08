@@ -1,0 +1,8 @@
+<section class="mt-2">
+  <div>
+    <strong>Value: </strong> <span [ngClass]="getValueClass()">{{getValue()}}</span>
+  </div>
+  <div>
+    <strong>State: </strong><span [ngClass]="getStatusClass()">{{control?.status || null}}</span>
+  </div>
+</section>

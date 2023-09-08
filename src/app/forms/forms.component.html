@@ -1,18 +1,42 @@
-<ngds-tab-row [defaultActiveTabId]="'picklists'">
+<h2>Input types:</h2>
+<ngds-tab-row [defaultActiveTabId]="'text'">
+  <ngds-tab [id]="'text'" [title]="'Text'">
+    <text-input-demos></text-input-demos>
+  </ngds-tab>
+</ngds-tab-row>
+<!-- <div class="mb-5">
+  <demonstrator [control]='fields?.basicInput' [htmlFile]="
+    basicTextInputTemplate
+  ">
+  </demonstrator>
+</div> -->
+
+<!-- <div class="mb-5">
+  <demonstrator [htmlFile]="placeholderTextInputTemplate">
+    <placeholder-text-input></placeholder-text-input>
+  </demonstrator>
+</div> -->
+
+<!-- <ngds-tab-row [defaultActiveTabId]="'basic'">
   <ngds-tab [title]="'Basic Form Inputs'" [id]="'basic'">
     <h2>Basic form inputs</h2>
-    <ngds-text-input [control]="fields.simpleText" [label]="'Simple text entry'"></ngds-text-input>
+    <ngds-text-input [control]="fields.simpleText" [label]="'Simple text entry'"
+      [subLabel]="'with subtitle'"></ngds-text-input>
     <ngds-text-input [control]="fields.placeholder" [label]="'Text with placeholder'"
-    [placeholder]="'placeholder text'"></ngds-text-input>
-    <ngds-text-input [control]="fields.disabledText" [label]="'Disabled text field'" [disabled]="true"></ngds-text-input>
+      [subLabel]="'Click on the X to reset your selection'" [placeholder]="'placeholder text'">
+      <button ngdsInputAppend class="input-group-text input-group-after" (click)="clearSelection()"><i
+          class="bi bi-x-lg"></i></button>
+    </ngds-text-input>
+    <ngds-text-input [control]="fields.disabledText" [label]="'Disabled text field'"
+      [disabled]="true"></ngds-text-input>
     <ngds-text-input [control]="fields.textWithDefaultValue" [label]="'Text with default value'"></ngds-text-input>
     <ngds-text-input [control]="fields.requiredText" [label]="'Required text field'"></ngds-text-input>
     <ngds-text-input [control]="fields.customValidator"
-    [label]="'Text field with custom validator (type &quot;invalid&quot;)'"></ngds-text-input>
+      [label]="'Text field with custom validator (type &quot;invalid&quot;)'"></ngds-text-input>
     <ngds-text-input [control]="fields.loadWhile" [label]="'Loading spinner (loadWhile)'"
-    [loadWhile]="true"></ngds-text-input>
+      [loadWhile]="true"></ngds-text-input>
     <ngds-text-input [control]="fields.asyncData" [label]="'Asynchronous data ('+countdown+')'"
-    [loadWhile]="!fields.asyncData.value"></ngds-text-input>
+      [loadWhile]="!fields.asyncData.value"></ngds-text-input>
     <button (click)="getValue()">Value</button>
     <button (click)="getForm()">Form</button>
   </ngds-tab>
@@ -22,21 +46,29 @@
       <span ngdsInputPrepend class="input-group-text">Prepended text</span>
       <span ngdsInputAppend class="input-group-text">Appended text</span>
     </ngds-text-input>
-    <!-- Using local custom classes: input-group-icon-before/middle/after (forms.component.scss) -->
-    <ngds-text-input [control]="fields.inputIconGroup" [label]="'Icon groups'" [inputClasses]="'input-group-middle'">
-      <span ngdsInputPrepend class="input-group-text input-group-before"><i ngdsInputPrepend class="bi bi-exclamation-circle"></i></span>
-    <span ngdsInputPrepend class="input-group-text input-group-middle"><i ngdsInputPrepend class="bi bi-arrow-down-circle"></i></span>
-    <span ngdsInputAppend class="input-group-text input-group-after"><i ngdsInputPrepend class="bi bi-calendar"></i></span>
-  </ngds-text-input>
-  <ngds-text-input [control]="fields.inputButtonGroup" [label]="'Button groups'">
-    <button ngdsInputPrepend class="btn btn-outline-secondary" type="button" (click)="buttonGroupClick(1)">Button
-      1</button>
+    <ngds-text-input [control]="fields.inputIconGroup" [label]="'Icon groups - using custom scss'">
+      <span ngdsInputPrepend class="input-group-text"><i class="bi bi-exclamation-circle"></i></span>
+      <span ngdsInputPrepend class="input-group-text"><i class="bi bi-arrow-down-circle"></i></span>
+      <span ngdsInputAppend class="input-group-text"><i class="bi bi-calendar"></i></span>
+    </ngds-text-input>
+    <ngds-text-input [control]="fields.inputIconGroup" [label]="'Icon groups - using custom scss'">
+      <span ngdsInputPrepend><i class="bi bi-exclamation-circle"></i></span>
+      <span ngdsInputPrepend><i class="bi bi-arrow-down-circle"></i></span>
+      <button ngdsInputAppend><i class="bi bi-calendar"></i></button>
+    </ngds-text-input>
+    <ngds-text-input [control]="fields.inputButtonGroup" [label]="'Button groups'">
+      <button ngdsInputPrepend class="btn btn-outline-secondary" type="button" (click)="buttonGroupClick(1)">Button
+        1</button>
       <button ngdsInputAppend class="btn btn-outline-primary" type="button" (click)="buttonGroupClick(2)">Button
         2</button>
-        <button ngdsInputAppend class="btn btn-outline-danger" type="button" (click)="buttonGroupClick(3)">Button 3</button>
-      </ngds-text-input>
-    </ngds-tab>
-    <ngds-tab title="Picklists" [id]="'picklists'">
-      <app-picklists></app-picklists>
-    </ngds-tab>
-  </ngds-tab-row>
+      <button ngdsInputAppend class="btn btn-outline-danger" type="button" (click)="buttonGroupClick(3)">Button
+        3</button>
+    </ngds-text-input>
+  </ngds-tab>
+  <ngds-tab title="Picklists" [id]="'picklists'">
+    <app-picklists></app-picklists>
+  </ngds-tab>
+  <ngds-tab title="Typeahead" [id]="'typeahead'">
+    <app-typeaheads></app-typeaheads>
+  </ngds-tab>
+</ngds-tab-row> -->

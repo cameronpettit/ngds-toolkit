@@ -1,0 +1,8 @@
+.template-example {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  &:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+  }
+}

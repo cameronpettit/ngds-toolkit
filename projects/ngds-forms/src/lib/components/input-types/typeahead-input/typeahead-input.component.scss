@@ -1,0 +1,22 @@
+.default-list-group {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding-left: 0;
+  max-height: 200px;
+  margin: 0;
+  list-style: none;
+  overflow-y: scroll;
+}
+
+.default-list-group-item {
+  position: relative;
+  display: block;
+  padding: 0.3rem 0.75rem;
+  background-color: #fff;
+}
+
+.default-list-group-item.active {
+  z-index: 2;
+  background-color: #e9ecef;
+}

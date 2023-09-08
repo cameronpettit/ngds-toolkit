@@ -1,16 +1,22 @@
 <ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
 <div class="d-flex position-relative">
-  <div #inputGroup class="input-group">
+  <div #inputGroup class="input-group" dropdown (isOpenChange)="onOpenChange($event)" [isDisabled]="isDisabled">
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
-    <select class="form-control" [formControl]="control" [ngClass]="getInputClasses()"
-     (focus)="onFocus()" (blur)="onBlur()" [value]="control?.value">
-      <option *ngFor="let option of selectionListItems" value="{{option?.value || option}}" innerHtml="{{option?.display ||
-        option?.value || option}}">
-      </option>
-    </select>
-   
+    <button [ngClass]="getInputClasses()" dropdownToggle type="button" style="min-height: 2.25rem;"
+      class="form-select text-start" [value]="control?.value">{{ getDisplayValue() }}
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li *ngFor="let option of selectionListItems" (click)="setValue(option)" role="menuitem" class="option-item">
+          <!-- If you pass in an HTML template for the item... -->
+          <ng-container *ngIf="option?.template" [ngTemplateOutlet]="option?.template"
+            [ngTemplateOutletContext]="{data: option}"></ng-container>
+          <!-- Else just display the value or the display value -->
+          <div *ngIf="!option?.template" class="dropdown-item">
+            {{ option?.display || option?.value}}
+          </div>
+      </ul>
+    </button>
     <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
   </div>
-  <ngds-input-overlay #inputOverlay [loading]="isLoading" [invalid]="isInvalid" [dropdownCaret]="true"></ngds-input-overlay>
+  <ngds-input-overlay #inputOverlay [loading]="isLoading" [invalid]="isInvalid"></ngds-input-overlay>
 </div>
 <ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid"></ngds-input-footer>

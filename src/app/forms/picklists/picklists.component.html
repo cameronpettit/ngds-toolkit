@@ -1,3 +1,29 @@
 <h2>Picklists</h2>
-<ngds-picklist-input [label]="'Basic Picklist'" [control]="fields.basicPicklist" [selectionListItems]="basicSelectionItems"></ngds-picklist-input>
-<ngds-picklist-input [label]="'Custom Display Picklist'" [control]="fields.customPicklist" [selectionListItems]="customSelectionItems"></ngds-picklist-input>
+<ngds-picklist-input [label]="'Basic Picklist'" [placeholder]="'Make a selection'" [control]="fields?.basicPicklist" [selectionListItems]="basicSelectionItems"></ngds-picklist-input>
+<ngds-picklist-input [label]="'Basic Picklist with icons/text'" [placeholder]="'Make a selection'" [subLabel]="'Click on the X to reset your selection'" [control]="fields?.basicPicklist" [selectionListItems]="basicSelectionItems">
+  <span ngdsInputPrepend class="input-group-text"><i class="bi bi-exclamation-circle"></i></span>
+  <span ngdsInputPrepend class="input-group-text" >Picklist</span>
+  <button ngdsInputAppend class="input-group-text input-group-after" (click)="clearSelection()"><i class="bi bi-x-lg"></i></button>
+</ngds-picklist-input>
+<!-- <ngds-picklist-input [label]="'Basic Picklist with icons/text'" [placeholder]="'Make a selection'" [subLabel]="'Click on the X to reset your selection'" [control]="fields?.basicPicklist" [selectionListItems]="basicSelectionItems">
+  <span ngdsInputPrepend class="input-group-inline"><i class="bi bi-exclamation-circle"></i></span>
+  <span ngdsInputPrepend class="input-group-inline" >Picklist</span>
+  <button ngdsInputAppend class="input-group-text input-group-after" (click)="clearSelection()"><i class="bi bi-x-lg"></i></button>
+</ngds-picklist-input> -->
+<ngds-picklist-input [label]="'Custom Display Picklist'" [control]="fields.customPicklist" [selectionListItems]="customSelectionItems" [loadWhile]="!customSelectionItems"></ngds-picklist-input>
+<ngds-picklist-input [label]="'Invalid Picklist Item'" [control]="fields.invalidPicklist" [selectionListItems]="invalidSelectionItems" [placeholder]="'Select the invalid option'">
+  
+</ngds-picklist-input>
+
+<button class="btn btn-secondary" (click)="printForm()">Print Form</button>
+
+<ng-template #customOption let-data="data">
+  <div class="mx-2 p-2 template-example">
+    <h5>Custom HTML Option</h5>
+    <p>This option contains custom <span class="badge bg-danger">HTML</span> templates that can be used to create complex dropdown options.</p>
+    <p>You can reference the data contained in this entry using the <code>data</code> accessor:</p>
+    <span>This option will display "<code>{{data?.display}}</code>" when picked. </span>
+    <span>This option will have a value of "<code>{{data?.value}}</code>" when picked. </span>
+  </div>
+</ng-template>
+

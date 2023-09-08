@@ -1,0 +1,34 @@
+.disabled-input {
+  background-color: #e9ecef;
+}
+
+.option-item {
+  & :hover {
+    cursor: pointer;
+  }
+}
+
+.test {
+  padding: 1rem;
+  border: 2px solid gold;
+}
+
+// .input-group:not(:first-child) {
+//   background-color: aquamarine;
+//   border-left: none;
+// }
+// .input-group:not(:last-child) {
+//   border-right: none;
+// }
+
+.input-group > * {
+  // background-color: goldenrod;
+
+  & :not(:first-child) {
+    background-color: purple;
+    border-right: none;
+  }
+  & :not(:last-child) {
+    border-left: none;
+  }
+}

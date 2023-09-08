@@ -1,25 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, UntypedFormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { NgdsForm } from 'projects/ngds-forms/src/public-api';
+import { HttpClient } from '@angular/common/http';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subscription, timer } from 'rxjs';
+
+// import { basicTextInputTemplate } from './text-input/basic-text/basic-text-input.component';
 
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
-  styleUrls: ['./forms.component.scss']
+  styleUrls: ['./forms.component.scss'],
 })
 export class FormsComponent implements OnInit {
+
   public form;
   public fields: any = {};
   public subscriptions = new Subscription();
   public asyncData: any = {};
   public countdown = 4;
 
-  constructor() {
+  public basicText;
+  public basicHTML
+
+  constructor(
+  ) {
     const timeStep = () => {
       if (this.countdown > 1) {
         this.countdown--;
-        setTimeout(timeStep, 1000); 
+        setTimeout(timeStep, 1000);
       } else {
         this.countdown = 0;
         this.fields.asyncData.setValue('async data');
@@ -30,20 +37,24 @@ export class FormsComponent implements OnInit {
 
   // Custom validator. Invalidates field if the field value is 'invalid'
   customValidator(): ValidatorFn {
-    return (control: AbstractControl) : ValidationErrors | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
       if (value === 'invalid') {
-        return {customValidator: true}
+        return { customValidator: true }
       }
       return null;
     }
   }
 
+  clearSelection() {
+    this.fields.placeholder.reset();
+  }
+
   ngOnInit() {
     // create form
-    this.form = new NgdsForm(
+    this.form = new UntypedFormGroup(
       {
-        simpleText: new UntypedFormControl(''),
+        basicText: new UntypedFormControl(''),
         placeholder: new UntypedFormControl(''),
         disabledText: new UntypedFormControl(''),
         textWithDefaultValue: new UntypedFormControl(
@@ -64,11 +75,11 @@ export class FormsComponent implements OnInit {
     }
   }
 
-  getValue(){
+  getValue() {
     console.log('this.form.value:', this.form.value);
   }
 
-  getForm(){
+  getForm() {
     console.log('this.form:', this.form);
   }
 

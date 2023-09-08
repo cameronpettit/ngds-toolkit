@@ -1,0 +1,7 @@
+<section class="p-3 bg-light border rounded-3">
+  <ng-content></ng-content>
+  <monitor [control]="control"></monitor>
+  <div class="mt-3 border rounded bg-white">
+    <pre><code [highlight]="htmlFile" [languages]="['html']"></code></pre>
+  </div>
+</section>

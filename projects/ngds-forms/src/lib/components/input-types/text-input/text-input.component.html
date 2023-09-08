@@ -1,10 +1,11 @@
 <ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
 <div class="d-flex position-relative">
-  <div #inputGroup class="input-group">
+  <div class="input-group rounded-3 d-flex align-items-center" [ngClass]="getInputClasses()">
     <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
-    <input #inputMain class="form-control" [formControl]="control" [ngClass]="getInputClasses()"
-      [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()">
+    <input class="form-control border-0" [formControl]="control" [ngClass]="{'is-invalid': isInvalid}"  
+      [placeholder]="placeholder ? placeholder : ''" (focus)="onFocus()" (blur)="onBlur()" [attr.id]="control?.id">
     <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+    <button *ngIf="resetButton" type="button" aria-label="reset input" class="btn btn-inline border-0" [disabled]="isDisabled" (click)="control.reset()"><i class="bi bi-x-lg"></i></button>
   </div>
   <ngds-input-overlay #inputOverlay [loading]="isLoading" [invalid]="isInvalid"></ngds-input-overlay>
 </div>

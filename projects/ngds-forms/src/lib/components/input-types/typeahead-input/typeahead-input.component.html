@@ -1,0 +1,26 @@
+<ngds-input-header #inputHeader [label]="label" [subLabel]="subLabel" [control]="control"></ngds-input-header>
+<div class="d-flex position-relative">
+  <div class="input-group">
+    <ng-content #inputPrepend select="[ngdsInputPrepend]"></ng-content>
+    <input [ngModel]="currentDisplayValue" [typeahead]="selectionListItems" typeaheadOptionField="display"
+      (typeaheadOnSelect)="setValue($event)" [optionsListTemplate]="defaultListTemplate"
+      [typeaheadMinLength]="typeaheadMinLength" [optionsListTemplate]="defaultListTemplate"
+      [typeaheadMultipleSearch]="typeaheadMultipleSearch"
+      [typeaheadMultipleSearchDelimiters]="typeaheadMultipleSearchDelimiters" [adaptivePosition]="true"
+      [disabled]="isDisabled" [ngClass]="getInputClasses()" class="form-control" (focus)="onFocus()" (blur)="onBlur()">
+    <ng-content #inputAppend select="[ngdsInputAppend]"></ng-content>
+  </div>
+  <ngds-input-overlay #inputOverlay [loading]="isLoading" [invalid]="isInvalid"></ngds-input-overlay>
+</div>
+<ngds-input-footer #inputFooter [control]="control" [invalid]="isInvalid"></ngds-input-footer>
+
+<ng-template #defaultListTemplate let-matches="matches" let-query="query" let-typeaheadTemplateMethods>
+  <ul class="default-list-group">
+    <li class="default-list-group-item" *ngFor="let match of matches"
+      [class.active]="typeaheadTemplateMethods.isActive(match)"
+      (click)="typeaheadTemplateMethods.selectMatch(match, $event)"
+      (mouseenter)="typeaheadTemplateMethods.selectActive(match)">
+      <span [innerHtml]="getHighlightedMatch(match, query)"></span>
+    </li>
+  </ul>
+</ng-template>

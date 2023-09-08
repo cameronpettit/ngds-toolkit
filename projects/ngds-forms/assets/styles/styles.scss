@@ -1,0 +1,18 @@
+$input-disabled-bg: #e9ecef;
+$input-invalid-border-color: #dc3545;
+$input-border-color: #dee2e6;
+
+.disabled-input {
+  background-color: $input-disabled-bg;
+}
+
+.btn-inline {
+  background-color: inherit;
+  &:hover {
+    background-color: $input-disabled-bg;
+    transition: 0.2s linear;
+  }
+  &:focus {
+    outline: 2px solid black;
+  }
+}
